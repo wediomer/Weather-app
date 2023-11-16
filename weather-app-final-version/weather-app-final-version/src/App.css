@@ -1,0 +1,19 @@
+
+.container{
+
+  height: 800px;
+ 
+  background-image: url(https://th.bing.com/th/id/OIP.0-ApyQXDAoN-ezwikhk3dwHaE7?pid=ImgDet&w=199&h=132&c=7&dpr=1.3);
+  background-size: 1400px 800px; 
+  border: 1px solid black;
+  font-weight: bolder;
+  color: #000;
+}
+.card-body{
+  background-image: url("https://th.bing.com/th/id/OIP.wxpz3WgjglZxAc2gz_EH9AHaEK?pid=ImgDet&w=199&h=112&c=7&dpr=1.3");
+  background-size: 400px 400px; 
+  border: 1px solid black;
+  font-weight: bolder;
+  color: #000;
+}
+
