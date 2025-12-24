@@ -1,0 +1,112 @@
+.weather-card-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+}
+
+.weather-card-container .card {
+  flex: 1;
+  min-width: 220px;
+  max-width: 280px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border: none;
+  border-radius: 24px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  overflow: hidden;
+  position: relative;
+}
+
+.weather-card-container .card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+}
+
+.weather-card-container .card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.15);
+}
+
+.weather-card-container .card-body {
+  background: transparent !important;
+  padding: 2rem;
+  border: none;
+  text-align: center;
+  position: relative;
+}
+
+.weather-card-container .card-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 0.5rem;
+}
+
+.weather-card-container .card-subtitle {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #666 !important;
+  margin-bottom: 1.5rem;
+  text-transform: capitalize;
+}
+
+.weather-card-container .card-body img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  margin: 1rem 0;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+}
+
+.weather-card-container .card-text {
+  font-size: 0.9375rem;
+  color: #333;
+  margin-bottom: 0.75rem;
+  font-weight: 500;
+  line-height: 1.6;
+}
+
+.weather-card-container .card-text:first-of-type {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 992px) {
+  .weather-card-container {
+    justify-content: center;
+  }
+
+  .weather-card-container .card {
+    min-width: 200px;
+    max-width: 240px;
+  }
+}
+
+@media (max-width: 768px) {
+  .weather-card-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .weather-card-container .card {
+    width: 100%;
+    max-width: 100%;
+    min-width: auto;
+  }
+
+  .weather-card-container .card-body {
+    padding: 1.5rem;
+  }
+}
+

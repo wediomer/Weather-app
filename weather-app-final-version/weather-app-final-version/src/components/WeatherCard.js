@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.css';
+import './WeatherCard.css';
 
 const WeatherCard = ({ city }) => {
   const [weatherData, setWeatherData] = useState(null);
@@ -23,29 +24,40 @@ const WeatherCard = ({ city }) => {
     const fetchData = async () => {
       const cityEncoded = encodeURIComponent(city);
       const apiBaseURL = "https://api.openweathermap.org/data/2.5/forecast";
-      const apiKey = "43e74d54eb2c61bb69001a1e3c4b7a15";
+      const apiKey = process.env.REACT_APP_WEATHER_API_KEY || "43e74d54eb2c61bb69001a1e3c4b7a15";
 
       const nextThreeDays = getNextThreeDays();
       const weatherDataList = [];
 
-      for (const day of nextThreeDays) {
-        const options = `${apiBaseURL}?q=${cityEncoded}&appid=${apiKey}`;
-        try {
-          const response = await axios.get(options);
-          const filteredData = response.data.list.filter((data) => {
+      const options = `${apiBaseURL}?q=${cityEncoded}&appid=${apiKey}`;
+      try {
+        const response = await axios.get(options);
+        const filteredData = response.data.list.filter((data) => {
+          const dataDate = new Date(data.dt_txt).toLocaleDateString("en-US", {
+            day: "numeric",
+            month: "long",
+          });
+          return nextThreeDays.includes(dataDate);
+        });
+
+        // Get first forecast for each day
+        for (const day of nextThreeDays) {
+          const dayForecast = filteredData.find((data) => {
             const dataDate = new Date(data.dt_txt).toLocaleDateString("en-US", {
               day: "numeric",
               month: "long",
             });
             return dataDate === day;
           });
-          weatherDataList.push(filteredData[0]);
-        } catch (error) {
-          console.error(error);
+          if (dayForecast) {
+            weatherDataList.push(dayForecast);
+          }
         }
-      }
 
-      setWeatherData(weatherDataList);
+        setWeatherData(weatherDataList);
+      } catch (error) {
+        console.error(error);
+      }
     };
 
     if (city) {
@@ -54,24 +66,24 @@ const WeatherCard = ({ city }) => {
   }, [city]);
 
   if (!city) {
-    return <div>Enter a city to get weather information</div>;
+    return <div style={{ textAlign: 'center', color: 'white', fontSize: '1.125rem', padding: '3rem 1rem', fontWeight: '500' }}>Enter a city to get weather information</div>;
   }
 
   if (!weatherData) {
-    return <div>Loading...</div>;
+    return <div style={{ textAlign: 'center', color: 'white', fontSize: '1.125rem', padding: '3rem 1rem', fontWeight: '500' }}>Loading...</div>;
   }
 
   return (
-    <div className="card-container" style={{ display: "flex", justifyContent: "space-between" }}>
+    <div className="weather-card-container">
       {weatherData.map((data, index) => (
-        <div className="card mb-4 mt-5" key={index}>
-          <div className="card-body d-inline ">
+        <div className="card" key={index}>
+          <div className="card-body">
             <h5 className="card-title">{city}</h5>
-            <h6 className="card-subtitle mb-2 text-muted" style={{fontWeight: 'bold', color: '#000'}}>
+            <h6 className="card-subtitle mb-2">
               {getNextThreeDays()[index]}
             </h6>
             <img
-              src={`http://openweathermap.org/img/w/${data.weather[0].icon}.png`}
+              src={`https://openweathermap.org/img/w/${data.weather[0].icon}.png`}
               alt="Weather Icon"
               className="img-fluid"
             />

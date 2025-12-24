@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './SearchForm.css';
 
-const SearchForm = ({ onCityChange, onSearchHistoryClick, searchHistory, weatherData, setWeatherData }) => {
+const SearchForm = ({ onCityChange, onSearchHistoryClick, searchHistory }) => {
   const [city, setCity] = useState('');
 
   const handleInputChange = (e) => {
@@ -15,48 +16,41 @@ const SearchForm = ({ onCityChange, onSearchHistoryClick, searchHistory, weather
   };
 
   return (
-    <div>
-      <div>
-        <div>
-          {weatherData && (
-            <div className="result">
-              {/* {getImage()} */}
-            </div>
-          )}
-        </div>
-      </div>
+    <div className="search-form-wrapper">
       <form onSubmit={handleSubmit}>
         <div className="input-group mb-3">
           <input
             type="text"
-            className="form-control mt-5"
+            className="form-control"
             placeholder="Enter city..."
             value={city}
             onChange={handleInputChange}
             required
           />
-          <button type="submit" className="btn btn-primary mt-5">
+          <button type="submit" className="btn btn-primary">
             Search
           </button>
         </div>
       </form>
 
-      <div>
-        <div>
+      {searchHistory.length > 0 && (
+        <div className="search-history-wrapper">
           <h3>Search History</h3>
-          {searchHistory.map((previousCity) => (
-            previousCity && ( // Add a conditional check
-              <button
-                key={previousCity}
-                className="btn btn-primary mb-2"
-                onClick={() => onSearchHistoryClick(previousCity)}
-              >
-                {previousCity}
-              </button>
-            )
-          ))}
+          <div>
+            {searchHistory.map((previousCity) => (
+              previousCity && (
+                <button
+                  key={previousCity}
+                  className="btn btn-primary"
+                  onClick={() => onSearchHistoryClick(previousCity)}
+                >
+                  {previousCity}
+                </button>
+              )
+            ))}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

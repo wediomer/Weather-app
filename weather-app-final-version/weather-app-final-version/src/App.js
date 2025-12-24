@@ -2,22 +2,16 @@ import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import WeatherCard from './components/WeatherCard';
 import SearchForm from './components/SearchForm';
-// import PreviousSearch from './components/PreviousSearch';
 import '../src/App.css'
 
-
-const apiKey = '43e74d54eb2c61bb69001a1e3c4b7a15'; 
+const apiKey = process.env.REACT_APP_WEATHER_API_KEY || '43e74d54eb2c61bb69001a1e3c4b7a15'; 
 const apiUrl = 'https://api.openweathermap.org/data/2.5/forecast';
 
 const App = () => {
   const [city, setCity] = useState('');
-  const [searchHistory, setSearchHistory] = useState(['']);
+  const [searchHistory, setSearchHistory] = useState([]);
   const [error, setError] = useState('');
 
-
-  
-
-  
   const isValidCity = async (cityName) => {
     const trimmedCityName = cityName.trim();
     const url = `${apiUrl}?q=${trimmedCityName}&appid=${apiKey}`;
@@ -44,36 +38,42 @@ const App = () => {
         setCity(newCity);
         setSearchHistory([newCity, ...searchHistory]);
         setError('');
+      } else {
+        setCity(newCity);
+        setError('');
       }
     } else {
       setError('Invalid city name. Please enter a valid city.');
     }
   };
+  
   const handleSearchHistoryClick = (selectedCity) => {
-
     setCity(selectedCity);
   };
 
   return (
     <div className="container">
-  <div className="row justify-content-center">
-    <div className="col-ms-3 col-lg-8"> 
-      <SearchForm
-        onCityChange={handleCityChange}
-        onSearchHistoryClick={handleSearchHistoryClick}
-        searchHistory={searchHistory}
-      />
-       
-       {error && <div className="error-message">{error}</div>}
-     
-      <div>
-        <WeatherCard city={city} />
+      <div className="row justify-content-center">
+        <div className="col-ms-3 col-lg-8">
+          <div className="app-header">
+            <h1 className="app-title">Weather Forecast</h1>
+            <p className="app-subtitle">Stay informed about weather conditions worldwide</p>
+          </div>
+          
+          <SearchForm
+            onCityChange={handleCityChange}
+            onSearchHistoryClick={handleSearchHistoryClick}
+            searchHistory={searchHistory}
+          />
+           
+          {error && <div className="error-message">{error}</div>}
+        
+          <div>
+            <WeatherCard city={city} />
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
-
-  
   );
 };
 

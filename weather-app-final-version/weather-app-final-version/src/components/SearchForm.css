@@ -1,0 +1,103 @@
+.search-form-wrapper {
+  margin-bottom: 3rem;
+}
+
+.search-form-wrapper .input-group {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 16px;
+  padding: 0.5rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.search-form-wrapper .form-control {
+  border: none;
+  background: transparent;
+  padding: 1rem 1.25rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #1a1a1a;
+  outline: none;
+}
+
+.search-form-wrapper .form-control::placeholder {
+  color: #999;
+  font-weight: 400;
+}
+
+.search-form-wrapper .btn-primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+  padding: 1rem 2rem;
+  font-weight: 600;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.search-form-wrapper .btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+.search-form-wrapper .btn-primary:active {
+  transform: translateY(0);
+}
+
+.search-history-wrapper {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  margin-top: 1.5rem;
+}
+
+.search-history-wrapper h3 {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 1rem;
+}
+
+.search-history-wrapper .btn-primary {
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  color: #333;
+  border: none;
+  padding: 0.625rem 1.25rem;
+  margin-right: 0.75rem;
+  margin-bottom: 0.75rem;
+  border-radius: 20px;
+  font-weight: 500;
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.search-history-wrapper .btn-primary:hover {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+@media (max-width: 768px) {
+  .search-form-wrapper .input-group {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .search-form-wrapper .btn-primary {
+    width: 100%;
+  }
+
+  .search-history-wrapper .btn-primary {
+    font-size: 0.8125rem;
+    padding: 0.5rem 1rem;
+  }
+}
+
